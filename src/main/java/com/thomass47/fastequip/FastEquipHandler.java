@@ -40,9 +40,9 @@ public class FastEquipHandler {
         }
     }
 
-    //........ ||
+    // ....... ||
     // AI slop || feel free to improve
-    //........ \/
+    // ....... \/
 
     private ItemStack previousCursorStack = null;
 
