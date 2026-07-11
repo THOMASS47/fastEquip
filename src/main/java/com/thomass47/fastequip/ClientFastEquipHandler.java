@@ -7,42 +7,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import org.lwjgl.input.Mouse;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 
-public class FastEquipHandler {
-
-    @SubscribeEvent
-    public void onPlayerInteract(PlayerInteractEvent event) {
-        if (!Config.isHotbarFastEquipEnabled) return;
-
-        if (event.action != PlayerInteractEvent.Action.RIGHT_CLICK_AIR) return;
-
-        ItemStack heldItem = event.entityPlayer.getHeldItem();
-        if (heldItem == null) return;
-        if (heldItem.getItem() instanceof ItemArmor armor) {
-            int equipmentSlot = 4 - armor.armorType;
-            ItemStack wornArmor = event.entityPlayer.getEquipmentInSlot(equipmentSlot);
-
-            if (event.world.isRemote) {
-                event.entityPlayer.setCurrentItemOrArmor(equipmentSlot, heldItem);
-            } else {
-                event.entityPlayer.setCurrentItemOrArmor(equipmentSlot, heldItem);
-                event.entityPlayer.setCurrentItemOrArmor(0, wornArmor);
-
-                event.setCanceled(true);
-            }
-
-        }
-    }
-
-    // ....... ||
-    // AI slop || feel free to improve
-    // ....... \/
+public class ClientFastEquipHandler {
 
     private ItemStack previousCursorStack = null;
 
